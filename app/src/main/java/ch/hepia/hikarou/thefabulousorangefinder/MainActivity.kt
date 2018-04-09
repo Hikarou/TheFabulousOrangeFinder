@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             gameFile.createNewFile()
-            val testGame = Game("Toto", firstGame._tags)
+            val testGame = Game("Toto", DifferentGames.firstGame)
             ObjectOutputStream(FileOutputStream("$filesDir$_gameFilename")).use { it -> it.writeObject(testGame) }
         }
 
