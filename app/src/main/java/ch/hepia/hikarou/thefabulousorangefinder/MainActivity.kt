@@ -126,9 +126,8 @@ class MainActivity : AppCompatActivity() {
             logMessage("ID", ByteArrayToHexString(tag.id))
         }
 
-
-
-
+        val intent = Intent(this@MainActivity, EnigmeActivity::class.java)
+        startActivity(intent)
     }
 
     private fun ByteArrayToHexString(inarray: ByteArray): String {
