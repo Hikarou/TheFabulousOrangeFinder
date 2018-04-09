@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             ObjectOutputStream(FileOutputStream("$filesDir$_gameFilename")).use { it -> it.writeObject(testGame) }
         }
 
-
+/*
         val nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         logMessage("NFC supported", (nfcAdapter != null).toString())
         if (nfcAdapter == null) {
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         if (!nfcAdapter.isEnabled) {
             Toast.makeText(this, "NFC not enabled", Toast.LENGTH_LONG).show()
         }
-
+// */
         if (intent != null) {
             processIntent(intent)
         }
