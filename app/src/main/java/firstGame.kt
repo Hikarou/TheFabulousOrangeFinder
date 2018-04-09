@@ -1,0 +1,3 @@
+object firstGame {
+    val _tags = arrayOf("04ECD3DAAB4A80", "04AED3DAAB4A80", "0457D2DAAB4A81", "043CD3DAAB4A80", "04B5D2DAAB4A80")
+}
