@@ -101,7 +101,6 @@ hs_err_pid*
 *.sig
 
 pkg/
-src/
 ### Java template
 # Compiled class file
 
