@@ -36,8 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         currentGame.setCurGame(gamesState.last())
 
-        val intent = Intent(this@MainActivity, CarteActivity::class.java)
-        startActivity(intent)
+        startActivity(Intent(this@MainActivity, CarteActivity::class.java))
 
         // Should not be opened again on back
         finish()
