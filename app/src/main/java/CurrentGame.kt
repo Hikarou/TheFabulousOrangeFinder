@@ -28,9 +28,7 @@ object CurrentGame {
         } catch (ex: Exception) {
             when (ex) {
                 is FileNotFoundException -> {
-                    val testGame = Game("Toto", DifferentGames.firstGame)
-                    ObjectOutputStream(context.openFileOutput(gameFilename, Context.MODE_PRIVATE)).use { it -> it.writeObject(testGame) }
-                    gamesState.add(testGame)
+                    createNewGame("Toto", DifferentGames.firstGame, context)
                 }
                 else -> throw ex
             }
@@ -41,6 +39,14 @@ object CurrentGame {
 
     private fun setCurGame(game: Game) {
         curGame = game
+    }
+
+    fun createNewGame(name: String, tags: Array<String>, context: Context) {
+        inited = true
+        finished = false
+        curGame = Game(name, tags)
+        gamesState.add(curGame)
+        ObjectOutputStream(context.openFileOutput(gameFilename, Context.MODE_PRIVATE)).use { it -> it.writeObject(gamesState) }
     }
 
     fun getCurStep(): Int {
