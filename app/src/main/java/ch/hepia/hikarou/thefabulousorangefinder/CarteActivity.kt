@@ -5,6 +5,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.content.Intent
+import android.nfc.NdefMessage
+import android.nfc.NfcAdapter
+import android.nfc.Tag
+import android.widget.Toast
+import kotlin.experimental.and
 
 
 class CarteActivity : AppCompatActivity() {
@@ -17,6 +22,16 @@ class CarteActivity : AppCompatActivity() {
             val intent = Intent(this@CarteActivity, EnigmeActivity::class.java)
             startActivity(intent)
         })
-        img.setImageResource(R.drawable.carte1)
+
+        val carte = when (currentGame.getCurStep()) {
+            0 -> R.drawable.carte1
+            1 -> R.drawable.carte2
+            2 -> R.drawable.carte3
+            3 -> R.drawable.carte4
+            4 -> R.drawable.carte5
+            else -> R.drawable.carte1
+        }
+
+        img.setImageResource(carte)
     }
 }
