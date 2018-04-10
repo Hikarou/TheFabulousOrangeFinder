@@ -17,21 +17,23 @@ object CurrentGame {
         if (inited) return
 
         inited = true
-        val gameFile = File(context.filesDir, gameFilename)
-
-        if (gameFile.exists() && gameFile.isFile && gameFile.canRead() && gameFile.canWrite()) {
+        try {
             ObjectInputStream(context.openFileInput(gameFilename)).use { it ->
                 val restedFamily = it.readObject()
                 when (restedFamily) {
-                    is Game -> gamesState.add(gamesState.size, restedFamily)
+                    is ArrayList<*> -> if (restedFamily[0] is Game) gamesState.add(restedFamily[0] as Game)
                     else -> println("Deserialization failed")
                 }
             } // close not needed with use of use{}
-        } else {
-            gameFile.createNewFile()
-            val testGame = Game("Toto", DifferentGames.firstGame)
-            ObjectOutputStream(context.openFileOutput(gameFilename, Context.MODE_PRIVATE)).use { it -> it.writeObject(testGame) }
-            gamesState.add(testGame)
+        } catch (ex: Exception) {
+            when (ex) {
+                is FileNotFoundException -> {
+                    val testGame = Game("Toto", DifferentGames.firstGame)
+                    ObjectOutputStream(context.openFileOutput(gameFilename, Context.MODE_PRIVATE)).use { it -> it.writeObject(testGame) }
+                    gamesState.add(testGame)
+                }
+                else -> throw ex
+            }
         }
 
         CurrentGame.setCurGame(gamesState.last())
@@ -71,22 +73,18 @@ object CurrentGame {
 
                 gamesState[gamesState.size - 1] = curGame
 
-                val gameFile = File(context.filesDir, gameFilename)
+                /*
+                val fos = FileOutputStream("${context.filesDir}$gameFilename")
+                val oos = ObjectOutputStream(fos)
+                oos.writeObject(gamesState)
 
-                if (gameFile.exists() && gameFile.isFile && gameFile.canRead() && gameFile.canWrite()) {
-                    /*
-                    val fos = FileOutputStream("${context.filesDir}$gameFilename")
-                    val oos = ObjectOutputStream(fos)
-                    oos.writeObject(gamesState)
-
-                    oos.close()
-                    // */
-                    //*
-                    ObjectOutputStream(context.openFileOutput(gameFilename, Context.MODE_PRIVATE)).use { it ->
-                        it.writeObject(gamesState)
-                    } // close not needed with use of use{}
-                    // */
-                }
+                oos.close()
+                // */
+                //*
+                ObjectOutputStream(context.openFileOutput(gameFilename, Context.MODE_PRIVATE)).use { it ->
+                    it.writeObject(gamesState)
+                } // close not needed with use of use{}
+                // */
             } else {
                 Toast.makeText(context,
                         "Malheuresement, pas le bon tag !",
