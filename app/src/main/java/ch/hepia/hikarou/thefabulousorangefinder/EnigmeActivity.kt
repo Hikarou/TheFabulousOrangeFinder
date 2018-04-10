@@ -12,8 +12,11 @@ class EnigmeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enigme2)
+
+        // Layout
         val img = findViewById<View>(R.id.imageView2) as ImageView
 
+        // Picture handling and customisation
         img.isClickable = true
         img.setOnClickListener({
             this.finish()
@@ -30,5 +33,14 @@ class EnigmeActivity : AppCompatActivity() {
         }
 
         img.setImageResource(enigme)
+    }
+
+
+    /**
+     * Handles the back button press, get back to carte
+     */
+    override fun onBackPressed() {
+        startActivity(Intent(this@EnigmeActivity, CarteActivity::class.java))
+        this.finish()
     }
 }
