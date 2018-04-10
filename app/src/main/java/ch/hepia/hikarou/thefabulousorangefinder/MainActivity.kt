@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
                 val restedFamily = it.readObject()
                 when (restedFamily) {
                 //We can't use <String, String> because of type erasure
-                    is Game -> gamesState.add(gamesState.size,restedFamily)
+                    is Game -> gamesState.add(gamesState.size, restedFamily)
                     else -> println("Deserialization failed")
                 }
             }
@@ -39,7 +39,10 @@ class MainActivity : AppCompatActivity() {
             gameFile.createNewFile()
             val testGame = Game("Toto", DifferentGames.firstGame)
             ObjectOutputStream(FileOutputStream("$filesDir$_gameFilename")).use { it -> it.writeObject(testGame) }
+            gamesState.add(testGame)
         }
+
+        currentGame.setCurGame(gamesState.last())
 
 /*
         val nfcAdapter = NfcAdapter.getDefaultAdapter(this)
@@ -55,6 +58,12 @@ class MainActivity : AppCompatActivity() {
         if (intent != null) {
             processIntent(intent)
         }
+
+        val intent = Intent(this@MainActivity, CarteActivity::class.java)
+        startActivity(intent)
+
+        // Should not be opened again on back
+        finish()
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -125,9 +134,6 @@ class MainActivity : AppCompatActivity() {
             }
             logMessage("ID", ByteArrayToHexString(tag.id))
         }
-
-        val intent = Intent(this@MainActivity, EnigmeActivity::class.java)
-        startActivity(intent)
     }
 
     private fun ByteArrayToHexString(inarray: ByteArray): String {
