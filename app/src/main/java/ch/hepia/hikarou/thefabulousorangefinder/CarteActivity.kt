@@ -19,6 +19,12 @@ class CarteActivity : AppCompatActivity() {
             startActivity(intent)
         })
 
+        if (intent != null) {
+            CurrentGame.processIntent(intent, this@CarteActivity)
+
+            startActivity(Intent(this@CarteActivity, EnigmeActivity::class.java))
+        }
+
         val carte = when (CurrentGame.getCurStep()) {
             0    -> R.drawable.carte1
             1    -> R.drawable.carte2
@@ -29,12 +35,6 @@ class CarteActivity : AppCompatActivity() {
         }
 
         img.setImageResource(carte)
-
-        if (intent != null) {
-            CurrentGame.processIntent(intent, this@CarteActivity)
-
-            startActivity(Intent(this@CarteActivity, EnigmeActivity::class.java))
-        }
     }
 
 }
