@@ -7,18 +7,34 @@
     tools:context="ch.hepia.hikarou.thefabulousorangefinder.MainActivity">
 
 
-    <ScrollView
-        android:id="@+id/sv_messages"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:clickable="false"
+        android:paddingTop="100dp"
+        android:text="@string/welcome_message"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="10dp" />
 
-        <TextView
-            android:id="@+id/tv_messages"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            tools:text="NFC Messages" />
-    </ScrollView>
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="20dp"
+        android:text="@string/nouvelle_partie"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="parent" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/continuer"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </android.support.constraint.ConstraintLayout>
