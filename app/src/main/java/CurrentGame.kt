@@ -6,7 +6,7 @@ import android.widget.Toast
 import ch.hepia.hikarou.thefabulousorangefinder.Game
 
 object CurrentGame {
-    private lateinit var curGame : Game
+    private lateinit var curGame: Game
     private var finished: Boolean = false
 
     fun setCurGame(game: Game) {
@@ -20,8 +20,6 @@ object CurrentGame {
     fun nextTag(): String {
         return curGame.gameTags[curGame.currentStep]
     }
-
-
 
     fun processIntent(checkIntent: Intent, context: Context) {
         // Check if intent has the action of a discovered NFC tag
