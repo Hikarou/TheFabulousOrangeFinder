@@ -1,14 +1,11 @@
 package ch.hepia.hikarou.thefabulousorangefinder
 
 import android.content.Intent
-import android.nfc.NfcAdapter
-import android.nfc.Tag
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
-import currentGame
+import CurrentGame
 
 
 class CarteActivity : AppCompatActivity() {
@@ -22,7 +19,7 @@ class CarteActivity : AppCompatActivity() {
             startActivity(intent)
         })
 
-        val carte = when (currentGame.getCurStep()) {
+        val carte = when (CurrentGame.getCurStep()) {
             0    -> R.drawable.carte1
             1    -> R.drawable.carte2
             2    -> R.drawable.carte3
@@ -34,7 +31,7 @@ class CarteActivity : AppCompatActivity() {
         img.setImageResource(carte)
 
         if (intent != null) {
-            currentGame.processIntent(intent, this@CarteActivity)
+            CurrentGame.processIntent(intent, this@CarteActivity)
 
             startActivity(Intent(this@CarteActivity, EnigmeActivity::class.java))
         }

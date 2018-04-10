@@ -20,7 +20,7 @@ class EnigmeActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG).show()
         })
 
-        val enigme = when (currentGame.getCurStep()) {
+        val enigme = when (CurrentGame.getCurStep()) {
             0 -> R.drawable.enigme1
             1 -> R.drawable.enigme2
             2 -> R.drawable.enigme3

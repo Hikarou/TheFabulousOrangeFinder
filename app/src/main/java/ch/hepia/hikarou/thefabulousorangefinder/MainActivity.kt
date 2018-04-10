@@ -5,7 +5,7 @@ import DifferentGames
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import currentGame
+import CurrentGame
 import java.io.*
 
 class MainActivity : AppCompatActivity() {
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             gamesState.add(testGame)
         }
 
-        currentGame.setCurGame(gamesState.last())
+        CurrentGame.setCurGame(gamesState.last())
 
         startActivity(Intent(this@MainActivity, CarteActivity::class.java))
 

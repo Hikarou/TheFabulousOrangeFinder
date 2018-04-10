@@ -5,8 +5,9 @@ import android.nfc.Tag
 import android.widget.Toast
 import ch.hepia.hikarou.thefabulousorangefinder.Game
 
-object currentGame {
+object CurrentGame {
     private lateinit var curGame : Game
+    private var finished: Boolean = false
 
     fun setCurGame(game: Game) {
         curGame = game
@@ -25,15 +26,22 @@ object currentGame {
     fun processIntent(checkIntent: Intent, context: Context) {
         // Check if intent has the action of a discovered NFC tag
         // with NDEF formatted contents
-        if (checkIntent.action == NfcAdapter.ACTION_NDEF_DISCOVERED) {
+        if (!finished && checkIntent.action == NfcAdapter.ACTION_NDEF_DISCOVERED) {
 
             val tag: Tag = checkIntent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
 
-            if (byteArrayToHexString(tag.id) == currentGame.nextTag()) {
+            if (byteArrayToHexString(tag.id) == nextTag()) {
                 Toast.makeText(context,
                         "Bien joué! Tu as trouvé le bon tag pour cette étape !",
                         Toast.LENGTH_LONG).show()
-                currentGame.curGame.currentStep++
+                curGame.currentStep++
+
+                finished = curGame.currentStep == curGame.gameTags.size
+
+                if (finished)
+                    Toast.makeText(context,
+                            "Bravo! Tu as trouvé le dernier tag !",
+                            Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(context,
                         "Malheuresement, pas le bon tag !",
