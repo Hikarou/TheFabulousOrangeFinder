@@ -79,18 +79,9 @@ object CurrentGame {
 
                 gamesState[gamesState.size - 1] = curGame
 
-                /*
-                val fos = FileOutputStream("${context.filesDir}$gameFilename")
-                val oos = ObjectOutputStream(fos)
-                oos.writeObject(gamesState)
-
-                oos.close()
-                // */
-                //*
                 ObjectOutputStream(context.openFileOutput(gameFilename, Context.MODE_PRIVATE)).use { it ->
                     it.writeObject(gamesState)
                 } // close not needed with use of use{}
-                // */
             } else {
                 Toast.makeText(context,
                         "Malheuresement, pas le bon tag !",
