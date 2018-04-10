@@ -14,13 +14,13 @@ object CurrentGame {
     private val gamesState: ArrayList<Game> = ArrayList(0)
 
     fun init(context: Context) {
-        if (!inited) return
+        if (inited) return
 
         inited = true
         val gameFile = File(context.filesDir, gameFilename)
 
         if (gameFile.exists() && gameFile.isFile && gameFile.canRead() && gameFile.canWrite()) {
-            ObjectInputStream(FileInputStream("${context.filesDir}$gameFilename")).use { it ->
+            ObjectInputStream(context.openFileInput(gameFilename)).use { it ->
                 val restedFamily = it.readObject()
                 when (restedFamily) {
                     is Game -> gamesState.add(gamesState.size, restedFamily)
@@ -30,7 +30,7 @@ object CurrentGame {
         } else {
             gameFile.createNewFile()
             val testGame = Game("Toto", DifferentGames.firstGame)
-            ObjectOutputStream(FileOutputStream("${context.filesDir}$gameFilename")).use { it -> it.writeObject(testGame) }
+            ObjectOutputStream(context.openFileOutput(gameFilename, Context.MODE_PRIVATE)).use { it -> it.writeObject(testGame) }
             gamesState.add(testGame)
         }
 
@@ -42,7 +42,7 @@ object CurrentGame {
     }
 
     fun getCurStep(): Int {
-        return curGame.currentStep
+        return if (inited) curGame.currentStep else -1
     }
 
     private fun nextTag(): String {
@@ -52,7 +52,7 @@ object CurrentGame {
     fun processIntent(checkIntent: Intent, context: Context) {
         // Check if intent has the action of a discovered NFC tag
         // with NDEF formatted contents
-        if (!finished && checkIntent.action == NfcAdapter.ACTION_NDEF_DISCOVERED) {
+        if (inited && !finished && checkIntent.action == NfcAdapter.ACTION_NDEF_DISCOVERED) {
 
             val tag: Tag = checkIntent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
 
@@ -69,8 +69,24 @@ object CurrentGame {
                             "Bravo! Tu as trouvé le dernier tag !",
                             Toast.LENGTH_LONG).show()
 
+                gamesState[gamesState.size - 1] = curGame
 
                 val gameFile = File(context.filesDir, gameFilename)
+
+                if (gameFile.exists() && gameFile.isFile && gameFile.canRead() && gameFile.canWrite()) {
+                    /*
+                    val fos = FileOutputStream("${context.filesDir}$gameFilename")
+                    val oos = ObjectOutputStream(fos)
+                    oos.writeObject(gamesState)
+
+                    oos.close()
+                    // */
+                    //*
+                    ObjectOutputStream(context.openFileOutput(gameFilename, Context.MODE_PRIVATE)).use { it ->
+                        it.writeObject(gamesState)
+                    } // close not needed with use of use{}
+                    // */
+                }
             } else {
                 Toast.makeText(context,
                         "Malheuresement, pas le bon tag !",
