@@ -37,16 +37,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".EnigmeActivity">
-            <intent-filter>
-                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
-                <!-- Default category is required for the intent filter to work -->
-                <category android:name="android.intent.category.DEFAULT" />
-                <!--
-                Intent filters without data will never be triggered on NFC devices.
-                Always define the specific data you expect to be present.
-                -->
-                <data android:mimeType="text/plain" />
-            </intent-filter>
         </activity>
     </application>
 
