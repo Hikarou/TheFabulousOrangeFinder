@@ -3,4 +3,6 @@
     <string name="welcome_message">Hello!\nBienvenue cher\nFinder!</string>
     <string name="nouvelle_partie">Nouvelle Partie</string>
     <string name="continuer">Continuer</string>
+    <string name="description_carte">Représente la cart de la chasse au trésor</string>
+    <string name="description_enigme">Affiche l\'énigme actuelle</string>
 </resources>
