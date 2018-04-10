@@ -19,6 +19,16 @@ class EnigmeActivity : AppCompatActivity() {
                     "The favorite list would appear on clicking this icon",
                     Toast.LENGTH_LONG).show()
         })
-        img.setImageResource(R.drawable.enigme1)
+
+        val enigme = when (currentGame.getCurStep()) {
+            0 -> R.drawable.enigme1
+            1 -> R.drawable.enigme2
+            2 -> R.drawable.enigme3
+            3 -> R.drawable.enigme4
+            4 -> R.drawable.enigme5
+            else -> R.drawable.enigme1
+        }
+
+        img.setImageResource(enigme)
     }
 }
