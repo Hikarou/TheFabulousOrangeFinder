@@ -25,9 +25,8 @@ class MainActivity : AppCompatActivity() {
         txt.typeface = ResourcesCompat.getFont(this.applicationContext, R.font.font)
 
         val btNewGame = findViewById<Button>(R.id.button)
-        btNewGame.visibility = View.INVISIBLE
         btNewGame?.setOnClickListener {
-            // TODO créer une nouvelle partie :)
+            CurrentGame.createNewGame("Toto", DifferentGames.firstGame, this@MainActivity)
             startActivity(Intent(this@MainActivity, CarteActivity::class.java))
         }
 
@@ -37,8 +36,6 @@ class MainActivity : AppCompatActivity() {
             CurrentGame.init(this@MainActivity)
             startActivity (Intent(this@MainActivity, CarteActivity::class.java))
         }
-
-
 
         if (intent.action == NfcAdapter.ACTION_NDEF_DISCOVERED) {
             CurrentGame.processIntent(intent, this@MainActivity)
@@ -57,7 +54,6 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT).show()
             exit = true
             Handler().postDelayed({ exit = false }, 3 * 1000)
-
         }
 
     }
