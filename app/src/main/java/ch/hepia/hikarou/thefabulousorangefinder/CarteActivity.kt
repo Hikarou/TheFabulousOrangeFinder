@@ -7,14 +7,16 @@ import android.view.View
 import android.widget.ImageView
 import CurrentGame
 import android.nfc.NfcAdapter
-import android.os.Handler
-import android.widget.Toast
 
 
 class CarteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Layout
         setContentView(R.layout.activity_enigme)
+
+        //Picture handling and customisation
         val img = findViewById<View>(R.id.imageView) as ImageView
         img.isClickable = true
         img.setOnClickListener({
@@ -33,14 +35,6 @@ class CarteActivity : AppCompatActivity() {
         }
 
         img.setImageResource(carte)
-
-        if (intent.action == NfcAdapter.ACTION_NDEF_DISCOVERED) {
-            CurrentGame.processIntent(intent, this@CarteActivity)
-
-            startActivity(Intent(this@CarteActivity, EnigmeActivity::class.java))
-
-            finish()
-        }
     }
 
 }
