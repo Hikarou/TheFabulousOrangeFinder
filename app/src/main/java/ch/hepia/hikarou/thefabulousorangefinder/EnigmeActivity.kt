@@ -1,10 +1,11 @@
 package ch.hepia.hikarou.thefabulousorangefinder
 
-import android.support.v7.app.AppCompatActivity
+import CurrentGame
+import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
 
 class EnigmeActivity : AppCompatActivity() {
 
@@ -14,10 +15,9 @@ class EnigmeActivity : AppCompatActivity() {
         val img = findViewById<View>(R.id.imageView2) as ImageView
 
         img.isClickable = true
-        img.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this@EnigmeActivity,
-                    "The favorite list would appear on clicking this icon",
-                    Toast.LENGTH_LONG).show()
+        img.setOnClickListener({
+            this.finish()
+            startActivity(Intent(this@EnigmeActivity, CarteActivity::class.java))
         })
 
         val enigme = when (CurrentGame.getCurStep()) {
@@ -30,5 +30,11 @@ class EnigmeActivity : AppCompatActivity() {
         }
 
         img.setImageResource(enigme)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        this.finish()
+        startActivity(Intent(this@EnigmeActivity, CarteActivity::class.java))
     }
 }
