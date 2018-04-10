@@ -43,18 +43,4 @@ class CarteActivity : AppCompatActivity() {
         }
     }
 
-    private var exit = false
-    override fun onBackPressed() {
-        if (exit) {
-            finish()
-        } else {
-            Toast.makeText(this, "Press Back again to Exit.",
-                    Toast.LENGTH_SHORT).show()
-            exit = true
-            Handler().postDelayed({ exit = false }, 3 * 1000)
-
-        }
-
-    }
-
 }

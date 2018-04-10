@@ -31,9 +31,4 @@ class EnigmeActivity : AppCompatActivity() {
 
         img.setImageResource(enigme)
     }
-
-    override fun onBackPressed() {
-        this.finish()
-        startActivity(Intent(this@EnigmeActivity, CarteActivity::class.java))
-    }
 }
