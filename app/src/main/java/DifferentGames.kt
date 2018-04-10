@@ -1,3 +1,7 @@
+/**
+ * Object handling the different games possible
+ */
+
 object DifferentGames {
     // Test tag (golden) :
     //  - E2717630000007E0 (golden)
