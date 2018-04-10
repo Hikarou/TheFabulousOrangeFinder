@@ -33,7 +33,6 @@ class EnigmeActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         this.finish()
         startActivity(Intent(this@EnigmeActivity, CarteActivity::class.java))
     }
