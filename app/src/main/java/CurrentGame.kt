@@ -18,6 +18,13 @@ object CurrentGame {
     private val gamesState: ArrayList<Game> = ArrayList(0) /// The games retrieved from the file
 
     /**
+     * Whether the curGame object is inited
+     */
+    fun isInited() : Boolean {
+        return inited
+    }
+
+    /**
      * Initializes the object
      */
     fun init(context: Context) {
