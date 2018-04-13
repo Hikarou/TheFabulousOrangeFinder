@@ -29,7 +29,7 @@ class EnigmeActivity : AppCompatActivity() {
             2 -> R.drawable.enigme3
             3 -> R.drawable.enigme4
             4 -> R.drawable.enigme5
-            else -> R.drawable.enigme1
+            else -> R.drawable.enigme_final
         }
 
         img.setImageResource(enigme)
