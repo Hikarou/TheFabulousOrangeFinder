@@ -28,42 +28,43 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Cet appareil ne supporte pas la technologie NFC",
                     Toast.LENGTH_SHORT).show()
             finish()
-        }
+        } else {
 
-        // Layout
-        val txt = findViewById<TextView>(R.id.textView)
-        txt.typeface = ResourcesCompat.getFont(this.applicationContext, R.font.font)
+            // Layout
+            val txt = findViewById<TextView>(R.id.textView)
+            txt.typeface = ResourcesCompat.getFont(this.applicationContext, R.font.font)
 
-        // New game button
-        val btNewGame = findViewById<Button>(R.id.button)
-        btNewGame?.setOnClickListener {
-            CurrentGame.createNewGame("Toto", DifferentGames.firstGame, this@MainActivity)
-            startActivity(Intent(this@MainActivity, CarteActivity::class.java))
-        }
+            // New game button
+            val btNewGame = findViewById<Button>(R.id.button)
+            btNewGame?.setOnClickListener {
+                CurrentGame.createNewGame("Toto", DifferentGames.firstGame, this@MainActivity)
+                startActivity(Intent(this@MainActivity, CarteActivity::class.java))
+            }
 
-        // continue button
-        val btContinue = findViewById<Button>(R.id.button2)
-        btContinue?.setOnClickListener {
-            CurrentGame.init(this@MainActivity)
-            startActivity(Intent(this@MainActivity, CarteActivity::class.java))
-        }
+            // continue button
+            val btContinue = findViewById<Button>(R.id.button2)
+            btContinue?.setOnClickListener {
+                CurrentGame.init(this@MainActivity)
+                startActivity(Intent(this@MainActivity, CarteActivity::class.java))
+            }
 
-        if (!nfcAdapter.isEnabled) {
-            Toast.makeText(this, "Il faut activer le NFC avant de pouvoir jouer",
-                    Toast.LENGTH_SHORT).show()
-            val buttons = arrayOf(btNewGame, btContinue)
-            buttons.forEach { it.visibility = View.INVISIBLE }
-            btNewGame.visibility = View.INVISIBLE
-            btContinue.visibility = View.INVISIBLE
-            checkNfcBack(nfcAdapter, buttons)
-        }
+            if (!nfcAdapter.isEnabled) {
+                Toast.makeText(this, "Il faut activer le NFC avant de pouvoir jouer",
+                        Toast.LENGTH_SHORT).show()
+                val buttons = arrayOf(btNewGame, btContinue)
+                buttons.forEach { it.visibility = View.INVISIBLE }
+                btNewGame.visibility = View.INVISIBLE
+                btContinue.visibility = View.INVISIBLE
+                checkNfcBack(nfcAdapter, buttons)
+            }
 
 
-        // NFC tag handling
-        if (CurrentGame.isInited() && intent.action == NfcAdapter.ACTION_NDEF_DISCOVERED) {
-            CurrentGame.processIntent(intent, this@MainActivity)
+            // NFC tag handling
+            if (CurrentGame.isInited() && intent.action == NfcAdapter.ACTION_NDEF_DISCOVERED) {
+                CurrentGame.processIntent(intent, this@MainActivity)
 
-            startActivity(Intent(this@MainActivity, EnigmeActivity::class.java))
+                startActivity(Intent(this@MainActivity, EnigmeActivity::class.java))
+            }
         }
     }
 
