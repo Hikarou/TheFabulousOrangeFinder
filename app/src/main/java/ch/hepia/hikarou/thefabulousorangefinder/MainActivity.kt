@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         // NFC support
         val nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         if (nfcAdapter == null) {
-            Toast.makeText(this, "This device does not support NFC",
+            Toast.makeText(this, "Cet appareil ne supporte pas la technologie NFC",
                     Toast.LENGTH_SHORT).show()
             finish()
         }
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (!nfcAdapter.isEnabled) {
-            Toast.makeText(this, "You need to activate NFC before you can play",
+            Toast.makeText(this, "Il faut activer le NFC avant de pouvoir jouer",
                     Toast.LENGTH_SHORT).show()
             val buttons = arrayOf(btNewGame, btContinue)
             buttons.forEach { it.visibility = View.INVISIBLE }
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         if (exit) {
             finish()
         } else {
-            Toast.makeText(this, "Press Back again to Exit.",
+            Toast.makeText(this, "Appuyer une nouvelle fois sur Retour pour sortir",
                     Toast.LENGTH_SHORT).show()
             exit = true
             Handler().postDelayed({ exit = false }, 3 * 1000)
