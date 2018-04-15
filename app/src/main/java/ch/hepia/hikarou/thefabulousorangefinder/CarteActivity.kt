@@ -6,12 +6,17 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageView
 import CurrentGame
-import android.nfc.NfcAdapter
+import LoopMediaPlayer
 
 
 class CarteActivity : AppCompatActivity() {
+    lateinit var mediaPlayer: LoopMediaPlayer
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        mediaPlayer = LoopMediaPlayer.create(this, R.raw.map, true)
 
         // Layout
         setContentView(R.layout.activity_enigme)
@@ -35,6 +40,17 @@ class CarteActivity : AppCompatActivity() {
         }
 
         img.setImageResource(carte)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mediaPlayer.stop()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mediaPlayer.start()
     }
 
 }

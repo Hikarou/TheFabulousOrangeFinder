@@ -6,12 +6,18 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageView
+import LoopMediaPlayer
 
 class EnigmeActivity : AppCompatActivity() {
+
+    lateinit var mediaPlayer: LoopMediaPlayer
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enigme2)
+
+        mediaPlayer = LoopMediaPlayer.create(this, R.raw.engime, true)
 
         // Layout
         val img = findViewById<View>(R.id.imageView2) as ImageView
@@ -42,5 +48,16 @@ class EnigmeActivity : AppCompatActivity() {
     override fun onBackPressed() {
         startActivity(Intent(this@EnigmeActivity, CarteActivity::class.java))
         this.finish()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mediaPlayer.stop()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mediaPlayer.start()
     }
 }

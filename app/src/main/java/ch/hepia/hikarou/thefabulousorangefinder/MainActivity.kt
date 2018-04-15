@@ -11,9 +11,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import LoopMediaPlayer
+
+
 
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var mediaPlayer: LoopMediaPlayer
+
 
     /**
      * Will be called everytime the activity is called
@@ -21,6 +27,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mediaPlayer = LoopMediaPlayer.create(this, R.raw.welcome, true)
+
 
         // NFC support
         val nfcAdapter = NfcAdapter.getDefaultAdapter(this)
@@ -92,5 +101,16 @@ class MainActivity : AppCompatActivity() {
             buttons.forEach { it.visibility = View.VISIBLE }
         }
         Handler().postDelayed({ checkNfcBack(nfcAdapter, buttons) }, 5 * 100)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mediaPlayer.stop()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mediaPlayer.start()
     }
 }
