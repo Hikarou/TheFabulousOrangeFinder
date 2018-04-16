@@ -36,7 +36,7 @@ class CarteActivity : AppCompatActivity() {
             2 -> R.drawable.carte3
             3 -> R.drawable.carte4
             4 -> R.drawable.carte5
-            else -> R.drawable.carte1
+            else -> R.drawable.carte5
         }
 
         img.setImageResource(carte)
